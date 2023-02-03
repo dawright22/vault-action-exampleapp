@@ -1,0 +1,18 @@
+name: ImageBuilder
+# Run this workflow every time a new commit pushed to your repository
+on: push
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://vault-public-vault-c87ea511.43c6f11b.z1.hashicorp.cloud:8200
+          tlsSkipVerify: true
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/azure/secret/ci app_secret
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --build-arg app_secret="${{ env.APP_SECRET }}" -t vault-action-exampleapp
