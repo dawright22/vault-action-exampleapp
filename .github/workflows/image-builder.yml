@@ -11,9 +11,9 @@ jobs:
         with:
           url: https://vault-public-vault-c87ea511.43c6f11b.z1.hashicorp.cloud:8200
           tlsSkipVerify: true
-          method:token
+          method: token
           token: ${{ secrets.VAULT_TOKEN }}
-          namespace:admin
+          namespace: admin
           secrets: |
             kv/azure/secret/ci app_secret
       - name: Build Docker Image
