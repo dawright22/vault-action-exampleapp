@@ -1,4 +1,4 @@
-resource "resource_group" "name" {
+resource "resource_group" "first" {
     name     = "name"
     location = "location"
 }
