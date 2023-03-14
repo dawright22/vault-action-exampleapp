@@ -12,17 +12,17 @@ provider "azurerm" {
 }
 
 
-# locals {
+locals {
 
-#   csv_data = <<-CSV
-#     Geo,Name,Location
-#     Europe,pod1,UK South
-#     America,pod1,East Asia
-#     Asia,pod1,East US
-#   CSV
+  csv_data = <<-CSV
+    Geo,Name,Location
+    Europe,pod1,UK South
+    America,pod1,East Asia
+    Asia,pod1,East US
+  CSV
 
-#   instances = csvdecode(local.csv_data)
-# }
+  instances = csvdecode(local.csv_data)
+}
 
 resource "azurerm_resource_group" "production_rg" {
  for_each = { for inst in local.instances : inst.Geo => inst }
